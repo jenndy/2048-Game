@@ -17,8 +17,11 @@ public class Game_2048 {
 
 	static Scanner scan = new Scanner(System.in);
 
-	// Create a new 4x4 board with a 2D array
-	static int[][] board = new int[4][4];
+	// Create a new n x n board with a 2D array
+	static int n1;
+	static int n2;
+	
+	static int[][] board;
 
 	public static void main(String[] args) throws InterruptedException {
 
@@ -37,8 +40,12 @@ public class Game_2048 {
 		System.out.println("Loading board...");
 
 		// Delays so user can read instructions  
-		TimeUnit.SECONDS.sleep(5);
+		TimeUnit.SECONDS.sleep(1);
 
+		// Create board 
+		createBoard();
+		board = new int[n1][n2];
+		
 		// Start game with two random pieces on the board
 		placePiece(board);
 		placePiece(board);
@@ -183,7 +190,7 @@ public class Game_2048 {
 
 	// Transpose matrix // for move up and down
 	public static void transposeBoard(int[][] b) {
-		int[][] temp = new int[4][4];
+		int[][] temp = new int[n1][n2];
 
 		for (int i = 0; i < b.length; i++) {
 			for (int j = 0; j < b[i].length; j++) {
@@ -199,7 +206,7 @@ public class Game_2048 {
 	public static boolean checkRight() {
 
 		move2 = false;
-		int[][] temp = new int[4][4];
+		int[][] temp = new int[n1][n2];
 		for (int i = 0; i < temp.length; i++) {
 			for (int j = 0; j < temp[i].length; j++) {
 				temp[i][j] = board[i][j];
@@ -215,7 +222,7 @@ public class Game_2048 {
 	public static boolean checkLeft() {
 
 		move1 = false;
-		int[][] temp = new int[4][4];
+		int[][] temp = new int[n1][n2];
 		for (int i = 0; i < temp.length; i++) {
 			for (int j = 0; j < temp[i].length; j++) {
 				temp[i][j] = board[i][j];
@@ -231,7 +238,7 @@ public class Game_2048 {
 	public static boolean checkUp() {
 
 		move3 = false;
-		int[][] temp = new int[4][4];
+		int[][] temp = new int[n1][n2];
 		for (int i = 0; i < temp.length; i++) {
 			for (int j = 0; j < temp[i].length; j++) {
 				temp[i][j] = board[j][i];
@@ -247,7 +254,7 @@ public class Game_2048 {
 	public static boolean checkDown() {
 
 		move4 = false;
-		int[][] temp = new int[4][4];
+		int[][] temp = new int[n1][n2];
 		for (int i = 0; i < temp.length; i++) {
 			for (int j = 0; j < temp[i].length; j++) {
 				temp[i][j] = board[j][i];
@@ -453,8 +460,8 @@ public class Game_2048 {
 		while (open) {
 
 			// Random location in 2D array
-			int row = loc.nextInt(4); // 0 to 3 inclusive
-			int col = loc.nextInt(4); // 0 to 3 inclusive
+			int row = loc.nextInt(n1); // 0 to 3 inclusive
+			int col = loc.nextInt(n2); // 0 to 3 inclusive
 
 			// Accounts for ratio between 2 or 4
 			int prob = piece.nextInt(5) + 1; // 1 to 5 inclusive
@@ -477,6 +484,15 @@ public class Game_2048 {
 		}
 	}
 
+	// User input for n x n board 
+	public static void createBoard() {
+		Scanner sc1 = new Scanner(System.in);
+		System.out.println("Number of rows: ");
+		n1 = sc1.nextInt();
+		System.out.println("Number of columns: ");
+		n2 = sc1.nextInt();
+	}
+	
 	// Prints the board to the console
 	public static void printBoard(int[][] board) {
 
@@ -490,15 +506,15 @@ public class Game_2048 {
 		System.out.println("Max Moves: " + maxMove);
 
 		// Loops through each row and each column of each row to print value
-		System.out.println(" _     _      _      _     _" );
+		#System.out.println(" _     _      _      _     _" );
 		for (int row = 0; row < board.length; row++) {
-			System.out.print("|");
+			#System.out.print("|");
 			for (int col = 0; col < board[row].length; col++) {
 				System.out.printf("%5d", board[row][col]);
-				System.out.print(" |");
+				#System.out.print(" |");
 			}
 			System.out.println();
-			System.out.println(" _     _      _      _     _" );
+			#System.out.println(" _     _      _      _     _" );
 		}
 	}
 
